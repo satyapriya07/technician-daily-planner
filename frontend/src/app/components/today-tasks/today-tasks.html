@@ -1,0 +1,57 @@
+<div class="tasks-container">
+    <h2>Today's Tasks</h2>
+
+    <div class="stats-container" *ngIf="!isLoading">
+        <div class="stat-card total">
+            <div class="stat-value">{{ totalTasks }}</div>
+            <div class="stat-label">Total Tasks</div>
+        </div>
+        <div class="stat-card completed">
+            <div class="stat-value">{{ completedTasks }}</div>
+            <div class="stat-label">Completed</div>
+        </div>
+        <div class="stat-card pending">
+            <div class="stat-value">{{ pendingTasks }}</div>
+            <div class="stat-label">Pending</div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading tasks...</p>
+    </div>
+
+    <div *ngIf="!isLoading && tasks.length === 0" class="empty-state">
+        <p>No tasks scheduled for today.</p>
+    </div>
+
+    <div *ngIf="!isLoading && tasks.length > 0" class="tasks-grid">
+        <div *ngFor="let task of tasks" class="task-card" [class.completed]="task.status === 'Completed'">
+            <div class="task-header">
+                <span class="task-type" [ngClass]="task.taskType.toLowerCase()">{{ task.taskType }}</span>
+                <div class="status-group">
+                    <label class="checkbox-container" *ngIf="task.status !== 'Completed'">
+                        <input type="checkbox" (change)="onComplete(task, $event)"
+                            [disabled]="processingTaskIds.has(task._id!)">
+                        <span class="checkmark" [class.processing]="processingTaskIds.has(task._id!)"></span>
+                    </label>
+                    <span class="task-status" [ngClass]="['status-' + (task.status?.toLowerCase() || 'pending')]">
+                        {{ processingTaskIds.has(task._id!) ? 'Updating...' : task.status }}
+                    </span>
+                </div>
+            </div>
+
+            <h3>{{ task.customerName }}</h3>
+
+            <div class="task-details">
+                <p><strong><i class="icon">📍</i> Location:</strong> {{ task.location }}</p>
+                <p><strong><i class="icon">🕒</i> Time:</strong> {{ task.scheduledTime | date:'shortTime' }}</p>
+            </div>
+
+            <div *ngIf="task.notes" class="task-notes">
+                <p><strong>Notes:</strong> {{ task.notes }}</p>
+            </div>
+
+        </div>
+    </div>
+</div>
