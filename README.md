@@ -62,8 +62,8 @@ A full-stack web application for technicians to manage their daily schedule, tra
    Access the app at `http://localhost:4200`.
 
 ## 🌐 Live URLs
-- **Frontend**: [Add Vercel Deployment Link Here]
-- **Backend**: [Add Render Deployment Link Here]
+- **Frontend**: [https://technician-daily-planner.vercel.app](https://technician-daily-planner.vercel.app)
+- **Backend**: [https://technician-daily-planner.onrender.com](https://technician-daily-planner.onrender.com)
 
 ## 📸 Screenshots
 

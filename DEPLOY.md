@@ -15,7 +15,7 @@
 1. **New Project**: Import `technician-daily-planner/frontend`.
 2. **Framework Preset**: Angular.
 3. **Build Command**: `npm run build` (This runs `set-env.js` + `ng build`).
-4. **Output Directory**: `dist/frontend/browser`
+4. **Output Directory**: `dist/frontend`
 5. **Environment Variables**:
    - `API_URL`: The URL of your deployed Backend + `/api`.
      - Example: `https://technician-planner-backend.onrender.com/api`
