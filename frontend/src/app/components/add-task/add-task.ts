@@ -51,10 +51,7 @@ export class AddTask {
       next: () => {
         this.isSubmitting = false;
         this.toastService.show('Task added successfully!', 'success');
-        this.taskForm.reset({
-          taskType: 'Installation',
-          notes: ''
-        });
+        this.router.navigate(['/today-tasks']);
       },
       error: (error) => {
         this.isSubmitting = false;
