@@ -29,7 +29,17 @@ export class TaskService {
   }
 
   getTodayTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}/today`);
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+    const end = new Date();
+    end.setHours(23, 59, 59, 999);
+
+    return this.http.get<Task[]>(`${this.apiUrl}/today`, {
+      params: {
+        start: start.toISOString(),
+        end: end.toISOString()
+      }
+    });
   }
 
   completeTask(id: string, completionData: { completionTime: Date }): Observable<Task> {

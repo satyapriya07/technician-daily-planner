@@ -32,11 +32,21 @@ export const createTask = async (req, res, next) => {
 // @access  Public
 export const getTodayTasks = async (req, res, next) => {
     try {
-        const startOfDay = new Date();
-        startOfDay.setHours(0, 0, 0, 0);
+        const { start, end } = req.query;
 
-        const endOfDay = new Date();
-        endOfDay.setHours(23, 59, 59, 999);
+        let startOfDay, endOfDay;
+
+        if (start && end) {
+            startOfDay = new Date(start);
+            endOfDay = new Date(end);
+        } else {
+            // Fallback to server local time if not provided
+            startOfDay = new Date();
+            startOfDay.setHours(0, 0, 0, 0);
+
+            endOfDay = new Date();
+            endOfDay.setHours(23, 59, 59, 999);
+        }
 
         const tasks = await Task.find({
             scheduledTime: { $gte: startOfDay, $lte: endOfDay },
